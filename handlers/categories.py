@@ -1,6 +1,7 @@
 from aiogram import Router,F, types
 from aiogram.filters import Command
 from keyboard.keyboard_category import category_kb
+from db.queries import get_categories
 
 categories_router = Router()
 
@@ -17,6 +18,10 @@ async def show_categories(message: types.Message):
     #     resize_keyboard=True
     # )
     await message.answer('Выберите категорию', reply_markup = category_kb())
+
+@categories_router.message(Command('get_db'))
+async def db_categories(message: types.Message):
+    await message.answer(str(get_categories()))
 
 
 @categories_router.message(F.text == 'Sedan')
