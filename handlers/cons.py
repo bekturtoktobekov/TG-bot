@@ -17,7 +17,7 @@ class Form(StatesGroup):
     phone = State()
 
 @consultation.message(Command('consultation'))
-async def start(message: types.Message, state: FSMContext):
+async def start_cons(message: types.Message, state: FSMContext):
     await state.set_state(Form.name)
     await message.answer('Как вас зовут?')
 

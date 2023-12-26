@@ -24,7 +24,8 @@ async def main():
         types.BotCommand(command='random_pic', description='случайная картинка'),
         types.BotCommand(command='categories', description='модель авто'),
         types.BotCommand(command='consultation', description= 'Записаться на консультацию'),
-        types.BotCommand(command='get_db', description='data from db' )
+        types.BotCommand(command='get_cars', description='cars'),
+        types.BotCommand(command='get_flats', description='flats')
     ])
 
     dp.include_router(pic_router)
