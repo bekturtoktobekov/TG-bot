@@ -2,6 +2,7 @@ from aiogram import Router, F,  types
 from aiogram.filters import Command
 from handlers.categories import category_cars, category_flats
 
+
 start_router = Router()
 
 @start_router.message(Command('start'))
@@ -14,7 +15,8 @@ async def start(message: types.Message):
             [types.InlineKeyboardButton(text='О нас', callback_data='about'),],
             [types.InlineKeyboardButton(text='Консультация', callback_data='consult')],
             [types.InlineKeyboardButton(text='Cars', callback_data='cars'),
-             types.InlineKeyboardButton(text='Flats', callback_data='flats')]
+             types.InlineKeyboardButton(text='Flats', callback_data='flats')],
+            # [types.InlineKeyboardButton(text='Напоминалка', callback_data='reminder_button')]
         ]
     )
     await message.answer(f'Привет, {message.from_user.full_name}', reply_markup=keyboard)
@@ -45,3 +47,7 @@ async def show_cars(callback: types.CallbackQuery):
 @start_router.callback_query(F.data == 'flats')
 async def show_cars(callback: types.CallbackQuery):
     await category_flats(callback.message)
+
+# @start_router.callback_query(F.data == 'reminder_button')
+# async def set_reminder(callback: types.CallbackQuery):
+#     await reminder(callback.message)
