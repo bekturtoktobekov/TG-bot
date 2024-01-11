@@ -10,6 +10,7 @@ from handlers.echo import echo_router
 from handlers.categories import categories_router
 from handlers.cons import consultation
 from handlers.delayed_answer import delayed_answer_router
+from handlers.groupadmin import group_admin_router
 from db.queries import init_db, create_table, populate_table
 images_directory = Path('/Users/bektur/Downloads/cars sample')
 
@@ -27,7 +28,7 @@ async def main():
         types.BotCommand(command='consultation', description= 'Записаться на консультацию'),
         types.BotCommand(command='get_cars', description='cars'),
         types.BotCommand(command='get_flats', description='flats'),
-        types.BotCommand(command='remind', description='напоминалка')
+        types.BotCommand(command='remind', description='напоминалка'),
     ])
 
     dp.include_router(pic_router)
@@ -35,6 +36,7 @@ async def main():
     dp.include_router(consultation)
     dp.include_router(categories_router)
     dp.include_router(delayed_answer_router)
+    dp.include_router(group_admin_router)
     dp.include_router(echo_router)
     dp.startup.register(on_startup)
     #запуск планировщика

@@ -33,3 +33,10 @@ async def send_reminder(chat_id: int, reminder_text: str):
         chat_id=chat_id,
         text=f'Reminder: {reminder_text}'
     )
+
+# @delayed_answer_router.message(Command('stop'))
+# async def stop(message: types.Message, state: FSMContext):
+#     job_id = f'reminder_{message.from_user.id}'
+#     scheduler.remove_job(job_id)
+#     await state.clear()
+#     await message.answer('Reminders stopped.')

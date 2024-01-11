@@ -12,21 +12,17 @@ def create_table():
         DROP TABLE IF EXISTS categories
         ''')
 
-
     cursor.execute('''
         DROP TABLE IF EXISTS cars
         ''')
-
 
     cursor.execute('''
         DROP TABLE IF EXISTS flats
         ''')
 
-
     cursor.execute('''
         DROP TABLE IF EXISTS user
         ''')
-
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS categories(
@@ -34,7 +30,6 @@ def create_table():
             name TEXT
         );
     ''')
-
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS cars(
@@ -49,7 +44,6 @@ def create_table():
             );
     ''')
 
-
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS flats(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,7 +57,6 @@ def create_table():
             );
     ''')
 
-
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS user(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -71,7 +64,6 @@ def create_table():
         user_name TEXT
         );
     ''')
-
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders(
@@ -82,6 +74,15 @@ def create_table():
         FOREIGN KEY (car_id) REFERENCES cars(id)
         );
     ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS parser(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        address TEXT,
+        price TEXT,
+        description TEXT)''')
+    db.commit()
 
 
 # def create_order(user_id: str, item_id: int, item_type: str):
@@ -119,7 +120,7 @@ def get_cars_id(id: int):
 #     return text
 
 def get_flats_id(id: int):
-    cursor.execute('SELECT * FROM flats WHERE id = ?', (id,))
+    cursor.execute('SELECT * FROM flats WHERE id = 1', (id,))
     flat_data = cursor.fetchone()
     return flat_data
 
@@ -147,7 +148,6 @@ def populate_table():
     ('10th microdistrict', 'USSR', 70, 2,'https://fastrack-waterfront-apartments.imgix.net/uploads/waterfront1009-1-copy-1--1.jpg?auto=format&fit=max&h=800&ixlib=php-2.1.1&q=80&s=6b90119a864d53ef1bd3d3f68b319a32', 2)
     ''')
 
-
 def get_categories():
     cursor.execute('SELECT * FROM categories')
     category_data = cursor.fetchall()
@@ -165,6 +165,19 @@ def get_flats_by_category(category_id: int):
     flats_data = cursor.fetchall()
     return flats_data
 
+def parser_db(data):
+    cursor.execute('''
+            INSERT INTO parser (title, address, price, description)
+            VALUES (?, ?, ?, ?)
+        ''', (data['title'], data['address'], data['price'], data['description']))
+    db.commit()
+
+# async def buy_button(message: types.Message):
+#     keyboard = types.InlineKeyboardMarkup(
+#         inline_keyboard=[
+#             [types.InlineKeyboardButton(text='В корзину', callback_data='basket')]
+#         ])
+#     await message.answer(reply_markup=keyboard)
 
 if __name__ == '__main__':
     init_db()
@@ -173,7 +186,7 @@ if __name__ == '__main__':
     # print(get_cars())
     categories = get_categories()
     for category in categories:
-        print(f"Category: {category}")
+        # print(f"Category: {category}")
 
         cars = get_cars_by_category(category[0])
         print("Cars:")
@@ -184,4 +197,6 @@ if __name__ == '__main__':
         print("Flats:")
         for flat in flats:
             print(flat)
+
+
 #primary key = уникальный идентификатор, первичный ключ
