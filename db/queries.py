@@ -81,7 +81,9 @@ def create_table():
         title TEXT,
         address TEXT,
         price TEXT,
-        description TEXT)''')
+        description TEXT
+        );
+        ''')
     db.commit()
 
 
@@ -171,6 +173,11 @@ def parser_db(data):
             VALUES (?, ?, ?, ?)
         ''', (data['title'], data['address'], data['price'], data['description']))
     db.commit()
+
+def get_parser():
+    cursor.execute('SELECT * FROM parser')
+    parsed_data = cursor.fetchall()
+    return parsed_data
 
 # async def buy_button(message: types.Message):
 #     keyboard = types.InlineKeyboardMarkup(

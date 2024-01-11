@@ -2,6 +2,8 @@ import requests
 from parsel import Selector
 from pprint import pprint
 from db.queries import init_db, parser_db, create_table
+from aiogram import Router
+
 
 class HousekgScraper:
     MAIN_URL = 'https://www.house.kg/snyat'
@@ -37,9 +39,6 @@ class HousekgScraper:
 if __name__ == '__main__':
     scraper = HousekgScraper()
     html = scraper.get_html()
-    # title = scraper.get_title(html)
-    # print(html[:250])
-    # print(title)
     init_db()
     create_table()
     houses = scraper.get_houses(html)
