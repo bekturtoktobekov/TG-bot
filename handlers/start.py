@@ -52,6 +52,7 @@ async def show_cars(callback: types.CallbackQuery):
 @start_router.callback_query(F.data == 'parser')
 async def show_parser(callback: types.CallbackQuery):
     await parsed_info(callback.message)
+
 # @start_router.callback_query(F.data == 'reminder_button')
 # async def set_reminder(callback: types.CallbackQuery):
 #     await reminder(callback.message)
